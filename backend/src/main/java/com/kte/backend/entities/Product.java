@@ -29,7 +29,7 @@ public class Product extends AbstractEntity {
         private String description;
 
         @Column(name = "alert_threshold", nullable = false)
-        private String alertThreshold;
+        private Integer alertThreshold;
 
         @Column(name="price", nullable = false)
         private BigDecimal price;
