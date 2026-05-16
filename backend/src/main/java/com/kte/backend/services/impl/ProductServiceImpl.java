@@ -31,7 +31,7 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public void create(ProductRequest request) {
+    public void create(final ProductRequest request) {
         checkIfProductAlreadyExistByReference(request.getReference());
         checkIfCategoryExistById(request.getCategoryId());
         final Product entity = productMapper.toEntity(request);
@@ -41,7 +41,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void update(String id, ProductRequest request) {
+    public void update(final String id,final  ProductRequest request) {
         final Optional<Product> existingProduct = productRepository.findById(id);
         if (existingProduct.isEmpty()) {
             log.debug("Product with id {} not found", id);
@@ -57,7 +57,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public PageReponse<ProductResponse> findAll(int page, int size) {
+    public PageReponse<ProductResponse> findAll(final int page, final int size) {
         log.debug("Finding all products with page {} and size {}", page, size);
         final PageRequest pageRequest = PageRequest.of(page, size);
         final Page<Product> products= productRepository.findAll(pageRequest);
@@ -67,7 +67,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductResponse findById(String id) {
+    public ProductResponse findById(final String id) {
         return productRepository.findById(id)
                 .map(productMapper::toResponse)
                 .orElseThrow(() -> {
@@ -77,7 +77,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(final String id) {
         final Product existingProduct = productRepository.findById(id)
                 .orElseThrow(() -> {
                     log.debug("Product with id {} not found", id);
