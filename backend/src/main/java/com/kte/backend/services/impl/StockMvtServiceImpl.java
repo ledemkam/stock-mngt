@@ -27,7 +27,6 @@ public class StockMvtServiceImpl implements StockMvtService {
     @Override
     public void create(final StockMvtRequest request) {
         scheckIfProductExistById(request.getProductId());
-        checkifStockMvtExistByQuantity(request.getQuantity());
         final StockMvt entity = stockMvtMapper.toEntity(request);
         log.info("Saving stock movement: {}", entity);
         stockMvtRepository.save(entity);
@@ -35,6 +34,16 @@ public class StockMvtServiceImpl implements StockMvtService {
 
     @Override
     public void update(final String id, StockMvtRequest request) {
+        final StockMvt existingStockMvt = stockMvtRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.debug("Stock movement with id {} not found", id);
+                    return new EntityNotFoundException("Stock movement not found");
+                });
+        scheckIfProductExistById(request.getProductId());
+        final StockMvt stockMvtToUpdate = stockMvtMapper.toEntity(request);
+        stockMvtToUpdate.setId(id);
+        log.info("Updating stock movement with id {}: {}", id, stockMvtToUpdate);
+        stockMvtRepository.save(stockMvtToUpdate);
 
     }
 
@@ -61,13 +70,6 @@ public class StockMvtServiceImpl implements StockMvtService {
                 });
     }
 
-    private void checkifStockMvtExistByQuantity(final Integer quantity){
-        if(stockMvtRepository.existsStockMvtByQuantity(quantity)){
-            log.debug("Stock movement with quantity {} already exists", quantity);
-            throw new IllegalArgumentException("Stock movement with this quantity already exists");
-        }
-
-    }
 
 
 
