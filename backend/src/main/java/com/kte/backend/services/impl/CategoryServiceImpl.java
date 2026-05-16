@@ -30,7 +30,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void create(final CategoryRequest request) {
-         final Optional<Category> category = categoryRepository.findByNameIgnoreCase(request.getName());
          checkIfCategoryAlreadyExistsByName(request.getName());
          final Category entity = categoryMapper.toEntity(request);
          log.info("Saving category: {}", entity);
