@@ -13,6 +13,8 @@ import com.kte.backend.services.StockMvtService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -49,16 +51,35 @@ public class StockMvtServiceImpl implements StockMvtService {
 
     @Override
     public PageReponse<StockMvtResponse> findAll(final int page, int size) {
-        return null;
+        log.debug("Fetching stock movements - page: {}, size: {}", page, size);
+        final PageRequest pageRequest = PageRequest.of(page, size);
+        Page <StockMvt> stockMvtPage = stockMvtRepository.findAll(pageRequest);
+        Page<StockMvtResponse> stockMvtResponsePage = stockMvtPage.map(stockMvtMapper::toResponse);
+        log.debug("Fetched {} stock movements", stockMvtPage.getNumberOfElements());
+        return PageReponse.of(stockMvtResponsePage);
     }
 
     @Override
     public StockMvtResponse findById(final String id) {
-        return null;
+        log.debug("Finding stock movement with id: {}", id);
+        return stockMvtRepository.findById(id)
+                .map(stockMvtMapper::toResponse)
+                .orElseThrow(() ->{
+                log.info("Stock movement with id {} not found", id);
+                    return new EntityNotFoundException("Stock movement not found");
+                });
+
     }
 
     @Override
     public void delete(final String id) {
+        final StockMvt stockMvt = stockMvtRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.debug("Stock movement with id {} not found", id);
+                    return new EntityNotFoundException("Stock movement not found");
+                });
+        log.info("Deleting stock movement with id {}: {}", id, stockMvt);
+        stockMvtRepository.delete(stockMvt);
 
     }
 
