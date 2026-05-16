@@ -14,6 +14,8 @@ import com.kte.backend.services.ProductService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -56,16 +58,33 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public PageReponse<ProductResponse> findAll(int page, int size) {
-        return null;
+        log.debug("Finding all products with page {} and size {}", page, size);
+        final PageRequest pageRequest = PageRequest.of(page, size);
+        final Page<Product> products= productRepository.findAll(pageRequest);
+        final Page<ProductResponse> productResponses = products.map(productMapper::toResponse);
+        log.debug("Found {} products", productResponses.getTotalElements());
+        return PageReponse.of(productResponses);
     }
 
     @Override
     public ProductResponse findById(String id) {
-        return null;
+        return productRepository.findById(id)
+                .map(productMapper::toResponse)
+                .orElseThrow(() -> {
+                    log.debug("Product with id {} not found", id);
+                    return new EntityNotFoundException("Product not found");
+                });
     }
 
     @Override
     public void delete(String id) {
+        final Product existingProduct = productRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.debug("Product with id {} not found", id);
+                    return new EntityNotFoundException("Product not found");
+                });
+        log.info("Deleting product with id {}: {}", id, existingProduct);
+        productRepository.delete(existingProduct);
 
     }
 
