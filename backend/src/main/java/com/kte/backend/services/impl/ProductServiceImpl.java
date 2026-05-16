@@ -40,6 +40,17 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void update(String id, ProductRequest request) {
+        final Optional<Product> existingProduct = productRepository.findById(id);
+        if (existingProduct.isEmpty()) {
+            log.debug("Product with id {} not found", id);
+            throw new EntityNotFoundException("Product not found");
+        }
+        checkIfProductAlreadyExistByReference(request.getReference());
+        checkIfCategoryExistById(request.getCategoryId());
+        final Product productToUpdate = productMapper.toEntity(request);
+        productToUpdate.setId(id);
+        log.info("Updating product with id {}: {}", id, productToUpdate);
+        productRepository.save(productToUpdate);
 
     }
 
