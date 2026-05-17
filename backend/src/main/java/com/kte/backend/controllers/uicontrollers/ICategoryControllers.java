@@ -48,7 +48,7 @@ public interface IUCategoryControllers {
             @ApiResponse(responseCode = "500", description = "Internal Server Error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class))),
     })
-    ResponseEntity<Void> updateCategory(final String id, final CategoryRequest request);
+    ResponseEntity<Void> updateCategory( final String id, final CategoryRequest request);
 
     @Operation(summary = "Get all Categories")
     @ApiResponses(value = {
