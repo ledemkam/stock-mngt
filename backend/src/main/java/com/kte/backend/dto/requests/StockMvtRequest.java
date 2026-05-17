@@ -1,4 +1,4 @@
-package com.kte.backend.requests;
+package com.kte.backend.dto.requests;
 
 import com.kte.backend.entities.TypeMvt;
 import lombok.*;

@@ -1,4 +1,4 @@
-package com.kte.backend.requests;
+package com.kte.backend.dto.requests;
 
 
 import jakarta.persistence.Entity;

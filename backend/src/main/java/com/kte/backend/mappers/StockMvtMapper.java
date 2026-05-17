@@ -2,8 +2,8 @@ package com.kte.backend.mappers;
 
 import com.kte.backend.entities.Product;
 import com.kte.backend.entities.StockMvt;
-import com.kte.backend.requests.StockMvtRequest;
-import com.kte.backend.responses.StockMvtResponse;
+import com.kte.backend.dto.requests.StockMvtRequest;
+import com.kte.backend.dto.responses.StockMvtResponse;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -2,8 +2,8 @@ package com.kte.backend.mappers;
 
 import com.kte.backend.entities.Category;
 import com.kte.backend.entities.Product;
-import com.kte.backend.requests.ProductRequest;
-import com.kte.backend.responses.ProductResponse;
+import com.kte.backend.dto.requests.ProductRequest;
+import com.kte.backend.dto.responses.ProductResponse;
 import org.springframework.stereotype.Component;
 
 @Component

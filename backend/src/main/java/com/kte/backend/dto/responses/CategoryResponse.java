@@ -1,4 +1,4 @@
-package com.kte.backend.responses;
+package com.kte.backend.dto.responses;
 
 import lombok.*;
 
