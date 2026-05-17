@@ -16,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Tag(name = "UI Category Controllers", description = "Endpoints for managing categories")
-public interface IUCategoryControllers {
+public interface UICategoryControllers {
 
     @Operation(summary = "Create Category")
     @ApiResponses(value = {
@@ -32,7 +32,7 @@ public interface IUCategoryControllers {
             @ApiResponse(responseCode = "500", description = "Internal Server Error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class))),
     })
-    ResponseEntity<Void> createCategory(@Valid @RequestBody final CategoryRequest request);
+    ResponseEntity<Void> createCategory(final CategoryRequest request);
 
     @Operation(summary = "Update Category")
     @ApiResponses(value = {

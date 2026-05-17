@@ -2,7 +2,7 @@ package com.kte.backend.controllers;
 
 
 import com.kte.backend.common.PageReponse;
-import com.kte.backend.controllers.uicontrollers.IUCategoryControllers;
+import com.kte.backend.controllers.uicontrollers.UICategoryControllers;
 import com.kte.backend.dto.requests.CategoryRequest;
 import com.kte.backend.dto.responses.CategoryResponse;
 import com.kte.backend.services.CategoryService;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(path = "/api/v1/categories")
-public class CategoriesController implements IUCategoryControllers{
+public class CategorieController implements UICategoryControllers {
 
     private  final CategoryService categoryService;
 
