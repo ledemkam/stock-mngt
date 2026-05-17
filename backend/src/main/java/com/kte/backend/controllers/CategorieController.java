@@ -7,6 +7,7 @@ import com.kte.backend.dto.requests.CategoryRequest;
 import com.kte.backend.dto.responses.CategoryResponse;
 import com.kte.backend.services.CategoryService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -37,6 +38,7 @@ public class CategorieController implements UICategoryControllers {
     @PutMapping(path = "/{category-id}")
     public ResponseEntity<Void> updateCategory(
             @Valid
+            @NotNull(message = "Category ID must not be null")
             @RequestBody
             @PathVariable("category-id")
             final  String id,
@@ -49,6 +51,7 @@ public class CategorieController implements UICategoryControllers {
     @Override
     @GetMapping(path = "/{category-id}")
     public ResponseEntity<CategoryResponse> getCategoryById(
+            @NotNull(message = "Category ID must not be null")
             @PathVariable("category-id")
             final String id) {
         log.debug("Received request to get category with id {}", id);
@@ -71,6 +74,7 @@ public class CategorieController implements UICategoryControllers {
     @Override
     @DeleteMapping(path = "/{category-id}")
     public ResponseEntity<Void> deleteCategory(
+            @NotNull(message = "Category ID must not be null")
             @PathVariable("category-id")
             final String id) {
         log.info("Received request to delete category with id {}", id);

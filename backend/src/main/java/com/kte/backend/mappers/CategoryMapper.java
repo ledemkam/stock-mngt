@@ -17,9 +17,11 @@ public class CategoryMapper {
 
 
     public CategoryResponse toResponse(final Category entity) {
+        final int nbProduct = 0 ;// to be later implemented
         return CategoryResponse.builder()
                 .name(entity.getName())
                 .description(entity.getDescripotion())
+                .nbProducts(nbProduct)
                 .build();
     }
 }

@@ -6,6 +6,7 @@ import com.kte.backend.dto.requests.ProductRequest;
 import com.kte.backend.dto.responses.ProductResponse;
 import com.kte.backend.services.ProductService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -39,6 +40,7 @@ public class ProductController implements UIProductController {
             @Valid
             @RequestBody
             @PathVariable("product-id")
+            @NotNull(message = "Product ID must not be null")
             final String id,
             final ProductRequest request) {
         log.info("Received request to update product with id {}: {}", id, request);
@@ -61,6 +63,7 @@ public class ProductController implements UIProductController {
     @Override
     @GetMapping(path = "/{product-id}")
     public ResponseEntity<ProductResponse> getCategoryById(
+            @NotNull(message = "Product ID must not be null")
             @PathVariable("product-id")
             final String id) {
         log.debug("Received request to get product with id {}", id);
@@ -70,6 +73,7 @@ public class ProductController implements UIProductController {
     @Override
     @DeleteMapping(path = "/{product-id}")
     public ResponseEntity<Void> deleteProduct(
+            @NotNull(message = "Product ID must not be null")
             @PathVariable("product-id")
             final String id) {
         log.info("Received request to delete product with id {}", id);

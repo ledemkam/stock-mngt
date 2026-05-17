@@ -54,6 +54,11 @@ public class AbstractEntity {
         if (this.deleted == null) {
             this.deleted = Boolean.FALSE;
         }
+        //todo: this has to be replaced by the actual user who is creating the entity,
+        // for now we will use SYSTEM as default value
+        if (this.createBy == null){
+            this.createBy ="SYSTEM";
+        }
     }
 
 }
