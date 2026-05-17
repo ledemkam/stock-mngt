@@ -4,6 +4,7 @@ package com.kte.backend.common;
 import lombok.*;
 import org.springframework.data.domain.Page;
 
+
 import java.util.List;
 
 @Setter
@@ -37,5 +38,6 @@ public class PageReponse <T>{
                 .isLast(page.isLast())
                 .build();
     }
+
 
 }

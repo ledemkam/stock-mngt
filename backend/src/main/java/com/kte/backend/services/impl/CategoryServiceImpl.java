@@ -2,10 +2,11 @@ package com.kte.backend.services.impl;
 
 import com.kte.backend.common.PageReponse;
 import com.kte.backend.entities.Category;
+import com.kte.backend.exceptions.DuplicateCategoryException;
 import com.kte.backend.mappers.CategoryMapper;
 import com.kte.backend.repositories.CategoryRepository;
-import com.kte.backend.requests.CategoryRequest;
-import com.kte.backend.responses.CategoryResponse;
+import com.kte.backend.dto.requests.CategoryRequest;
+import com.kte.backend.dto.responses.CategoryResponse;
 import com.kte.backend.services.CategoryService;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
@@ -15,7 +16,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 
@@ -63,7 +63,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryResponse findById(String id) {
+    public CategoryResponse findById(final String id) {
         return categoryRepository.findById(id)
                 .map(categoryMapper::toResponse)
                 .orElseThrow(() -> {
@@ -73,7 +73,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(final String id) {
         final Category existingCategory = categoryRepository.findById(id)
                 .orElseThrow(() ->new EntityNotFoundException("Category not found"));
         log.info("Deleting category with id {}: {}", id, existingCategory);
@@ -86,7 +86,7 @@ public class CategoryServiceImpl implements CategoryService {
         log.info("Category found with name {}: {}", categoryName, category);
         if (category.isPresent()) {
             log.debug("Category with name {} already exists", categoryName);
-            throw new EntityExistsException("Category already exists");
+            throw new DuplicateCategoryException("Category already exists");
         }
     }
 }

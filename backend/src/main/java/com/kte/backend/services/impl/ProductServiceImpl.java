@@ -2,14 +2,13 @@ package com.kte.backend.services.impl;
 
 
 import com.kte.backend.common.PageReponse;
-import com.kte.backend.entities.Category;
 import com.kte.backend.entities.Product;
+import com.kte.backend.exceptions.DuplicateProductException;
 import com.kte.backend.mappers.ProductMapper;
 import com.kte.backend.repositories.CategoryRepository;
 import com.kte.backend.repositories.ProductRepository;
-import com.kte.backend.requests.ProductRequest;
-import com.kte.backend.responses.ProductResponse;
-import com.kte.backend.services.CategoryService;
+import com.kte.backend.dto.requests.ProductRequest;
+import com.kte.backend.dto.responses.ProductResponse;
 import com.kte.backend.services.ProductService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -90,19 +89,18 @@ public class ProductServiceImpl implements ProductService {
 
 
     private void checkIfProductAlreadyExistByReference(final String reference) {
-        final Product existingProduct = productRepository.findByNameIgnoreCase(reference)
-                .orElseThrow(() ->{
+        productRepository.findByNameIgnoreCase(reference)
+                .orElseThrow(() -> {
                     log.debug("Product with reference {} already exists", reference);
-                    return new RuntimeException("Product already exists");
+                    return new DuplicateProductException("Product already exists");
                 });
     }
 
-    private void checkIfCategoryExistById(final String categoryId){
-        final Category existingCategory = categoryRepository.findById(categoryId)
+    private void checkIfCategoryExistById(final String categoryId) {
+        categoryRepository.findById(categoryId)
                 .orElseThrow(() -> {
                     log.debug("Category with id {} not found", categoryId);
                     return new EntityNotFoundException("Category not found");
                 });
-
     }
 }

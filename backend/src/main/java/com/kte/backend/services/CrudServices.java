@@ -2,8 +2,6 @@ package com.kte.backend.services;
 
 
 import com.kte.backend.common.PageReponse;
-import org.springframework.data.domain.Page;
-
 
 
 public interface CrudServices <I, O>{

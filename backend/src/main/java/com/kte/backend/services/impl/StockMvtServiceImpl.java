@@ -2,13 +2,12 @@ package com.kte.backend.services.impl;
 
 
 import com.kte.backend.common.PageReponse;
-import com.kte.backend.entities.Product;
 import com.kte.backend.entities.StockMvt;
 import com.kte.backend.mappers.StockMvtMapper;
 import com.kte.backend.repositories.ProductRepository;
 import com.kte.backend.repositories.StockMvtRepository;
-import com.kte.backend.requests.StockMvtRequest;
-import com.kte.backend.responses.StockMvtResponse;
+import com.kte.backend.dto.requests.StockMvtRequest;
+import com.kte.backend.dto.responses.StockMvtResponse;
 import com.kte.backend.services.StockMvtService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -22,13 +21,16 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class StockMvtServiceImpl implements StockMvtService {
 
+    private static final String STOCK_MVT_NOT_FOUND = "Stock movement not found";
+    private static final String STOCK_MVT_WITH_ID_NOT_FOUND = "stock movement with id {} not found";
+
     private final StockMvtRepository stockMvtRepository;
     private final StockMvtMapper stockMvtMapper;
     private final ProductRepository productRepository;
 
     @Override
     public void create(final StockMvtRequest request) {
-        scheckIfProductExistById(request.getProductId());
+        checkIfProductExistById(request.getProductId());
         final StockMvt entity = stockMvtMapper.toEntity(request);
         log.info("Saving stock movement: {}", entity);
         stockMvtRepository.save(entity);
@@ -36,12 +38,12 @@ public class StockMvtServiceImpl implements StockMvtService {
 
     @Override
     public void update(final String id, StockMvtRequest request) {
-        final StockMvt existingStockMvt = stockMvtRepository.findById(id)
+         stockMvtRepository.findById(id)
                 .orElseThrow(() -> {
-                    log.debug("Stock movement with id {} not found", id);
-                    return new EntityNotFoundException("Stock movement not found");
+                    log.debug(STOCK_MVT_WITH_ID_NOT_FOUND, id);
+                    return new EntityNotFoundException(STOCK_MVT_NOT_FOUND);
                 });
-        scheckIfProductExistById(request.getProductId());
+        checkIfProductExistById(request.getProductId());
         final StockMvt stockMvtToUpdate = stockMvtMapper.toEntity(request);
         stockMvtToUpdate.setId(id);
         log.info("Updating stock movement with id {}: {}", id, stockMvtToUpdate);
@@ -65,8 +67,8 @@ public class StockMvtServiceImpl implements StockMvtService {
         return stockMvtRepository.findById(id)
                 .map(stockMvtMapper::toResponse)
                 .orElseThrow(() ->{
-                log.info("Stock movement with id {} not found", id);
-                    return new EntityNotFoundException("Stock movement not found");
+                log.info(STOCK_MVT_WITH_ID_NOT_FOUND, id);
+                    return new EntityNotFoundException(STOCK_MVT_NOT_FOUND);
                 });
 
     }
@@ -75,18 +77,18 @@ public class StockMvtServiceImpl implements StockMvtService {
     public void delete(final String id) {
         final StockMvt stockMvt = stockMvtRepository.findById(id)
                 .orElseThrow(() -> {
-                    log.debug("Stock movement with id {} not found", id);
-                    return new EntityNotFoundException("Stock movement not found");
+                    log.debug(STOCK_MVT_WITH_ID_NOT_FOUND, id);
+                    return new EntityNotFoundException(STOCK_MVT_NOT_FOUND);
                 });
         log.info("Deleting stock movement with id {}: {}", id, stockMvt);
         stockMvtRepository.delete(stockMvt);
 
     }
 
-    private  void scheckIfProductExistById(final String productId){
-        final Product existingProduct = productRepository.findById(productId)
+    private void checkIfProductExistById(final String productId) {
+        productRepository.findById(productId)
                 .orElseThrow(() -> {
-                    log.debug("Product with id {} not found", productId);
+                    log.debug(STOCK_MVT_WITH_ID_NOT_FOUND, productId);
                     return new EntityNotFoundException("Product not found");
                 });
     }
