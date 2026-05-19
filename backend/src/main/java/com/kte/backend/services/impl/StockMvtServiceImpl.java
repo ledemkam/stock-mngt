@@ -10,6 +10,7 @@ import com.kte.backend.dto.requests.StockMvtRequest;
 import com.kte.backend.dto.responses.StockMvtResponse;
 import com.kte.backend.services.StockMvtService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class StockMvtServiceImpl implements StockMvtService {
 
     private static final String STOCK_MVT_NOT_FOUND = "Stock movement not found";
