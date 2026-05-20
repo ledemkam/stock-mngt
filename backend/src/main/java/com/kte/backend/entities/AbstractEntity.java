@@ -27,12 +27,6 @@ import static jakarta.persistence.GenerationType.UUID;
 @AllArgsConstructor
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-@FilterDef(
-        name = "tenantFilter",
-        parameters = @ParamDef(name = "tenantId", type = String.class),
-        defaultCondition = "tenant_id = :tenantId"
-)
-@Filter(name = "tenantFilter")
 public class AbstractEntity {
 
     @Id
@@ -40,8 +34,7 @@ public class AbstractEntity {
     @Column(name = "id", updatable = false, nullable = false)
     private String id;
 
-    @Column(name = "tenant_id", nullable = false)
-    private  String tenantId;
+
 
     @CreatedDate
     @Column(name = "created_at", updatable = false, nullable = false)
@@ -73,9 +66,6 @@ public class AbstractEntity {
             this.createBy ="SYSTEM";
         }
 
-        if (this.tenantId == null){
-            this.tenantId = TenantContext.getCurrentTenant();
-        }
     }
 
 }
