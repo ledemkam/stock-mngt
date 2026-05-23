@@ -9,8 +9,8 @@ import lombok.Setter;
 
 public enum UserRole {
 
-   PLATFORM_ADMIN,
-   COMPAGNY_ADMIN,
-   USER,
-   SALES_OPERATOR
+   ROLE_PLATFORM_ADMIN,
+   ROLE_COMPAGNY_ADMIN,
+   ROLE_USER,
+   ROLE_SALES_OPERATOR
 }

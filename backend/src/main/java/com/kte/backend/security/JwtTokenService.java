@@ -45,13 +45,13 @@ public class JwtTokenService {
             @NotNull
             final String tenantId,
             @NotNull
-            final String user,
+            final String userId,
             final String role
     ){
         final Date now = new Date();
         final Date expiryDate = new Date(now.getTime() + jwtProperties.getAccessTokenExpiration().toMillis());
         return Jwts.builder()
-                .subject(user)
+                .subject(userId)
                 .claim("tenantId", tenantId)
                 .claim("role", role)
                 .issuedAt(now)
