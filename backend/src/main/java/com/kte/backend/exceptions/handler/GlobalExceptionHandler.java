@@ -5,6 +5,7 @@ import com.kte.backend.dto.ErrorDto;
 import com.kte.backend.exceptions.DuplicateCategoryException;
 import com.kte.backend.exceptions.DuplicateProductException;
 
+import com.kte.backend.exceptions.UnauthorizedException;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,13 @@ import java.util.List;
 public class GlobalExceptionHandler {
 
 
-
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<ErrorDto> handleUnauthorizedException(UnauthorizedException ex) {
+        log.error("Caught UnauthorizedException", ex);
+        ErrorDto errorDto = new ErrorDto();
+        errorDto.setError("UNAUTHORIZED");
+        return new ResponseEntity<>(errorDto, HttpStatus.UNAUTHORIZED);
+    }
 
     @ExceptionHandler(DuplicateProductException.class)
     public ResponseEntity<ErrorDto> handleDuplicateProductException(DuplicateProductException ex) {
