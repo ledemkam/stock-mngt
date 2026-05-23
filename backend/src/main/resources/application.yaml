@@ -51,6 +51,13 @@ spring:
 server:
   port: ${SERVER_PORT:8080}
 
+app:
+    jwt:
+        private-key-path: ${JWT_PRIVATE_KEY_PATH:certs:private_key.pem}
+        public-key-path: ${JWT_PUBLIC_KEY_PATH:certs:public_key.pem}
+        access-token-expiration: ${JWT_ACCESS_TOKEN_EXPIRATION:86800000} # in seconds (1 hour)
+
+
   #Logging configuration
 logging:
   level:
@@ -62,6 +69,7 @@ logging:
   pattern:
     console: '%clr(%d{yyyy-MM-dd HH:mm:ss}){faint} %clr([%thread]){blue} %clr(%-5level){highlight} %clr(%logger{36}){cyan} - %msg%n'
     file: '%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n'
+  include-application-group:
 
 
 
