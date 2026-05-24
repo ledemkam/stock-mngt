@@ -1,10 +1,8 @@
 package com.kte.backend.entities;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Table;
+import com.kte.backend.enums.UserRole;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +24,10 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "users")
 public class User  extends AbstractEntity implements UserDetails {
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tenant_id", foreignKey = @ForeignKey(name = "fk_user_tenant_id"))
+    private Tenant tenant;
 
     @Column(name = "username", nullable = false, unique = true)
     private String username;
@@ -52,5 +54,9 @@ public class User  extends AbstractEntity implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(this.role.name()));
+    }
+
+    public  String getTenantId() {
+        return tenant != null ? tenant.getId() : null;
     }
 }

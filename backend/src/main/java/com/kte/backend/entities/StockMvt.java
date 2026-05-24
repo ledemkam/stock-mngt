@@ -1,5 +1,6 @@
 package com.kte.backend.entities;
 
+import com.kte.backend.enums.TypeMvt;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
