@@ -1,4 +1,4 @@
-package com.kte.backend.tenant;
+package com.kte.backend.config.tenantConfig;
 
 /**
  * TenantContext is a utility class that manages the current tenant information in a multi-tenant application.

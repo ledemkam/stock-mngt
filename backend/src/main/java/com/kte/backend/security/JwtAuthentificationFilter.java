@@ -1,6 +1,6 @@
 package com.kte.backend.security;
 
-import com.kte.backend.tenant.TenantContext;
+import com.kte.backend.config.tenantConfig.TenantContext;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

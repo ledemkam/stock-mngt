@@ -1,4 +1,4 @@
-package com.kte.backend.tenant;
+package com.kte.backend.config.tenantConfig;
 
 
 import jakarta.persistence.EntityManager;
