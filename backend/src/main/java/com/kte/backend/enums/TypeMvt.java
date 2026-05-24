@@ -1,4 +1,4 @@
-package com.kte.backend.entities;
+package com.kte.backend.enums;
 
 
 public enum TypeMvt {
