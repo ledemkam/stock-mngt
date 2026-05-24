@@ -1,6 +1,6 @@
 package com.kte.backend.dto.responses;
 
-import com.kte.backend.entities.TypeMvt;
+import com.kte.backend.enums.TypeMvt;
 import lombok.*;
 
 import java.time.LocalDateTime;

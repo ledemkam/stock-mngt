@@ -1,6 +1,6 @@
 package com.kte.backend.dto.requests;
 
-import com.kte.backend.entities.TypeMvt;
+import com.kte.backend.enums.TypeMvt;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
