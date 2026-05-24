@@ -6,10 +6,16 @@ import com.kte.backend.exceptions.DuplicateCategoryException;
 import com.kte.backend.exceptions.DuplicateProductException;
 
 import com.kte.backend.exceptions.UnauthorizedException;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -17,11 +23,51 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler({
+            AuthenticationException.class,
+            BadCredentialsException.class,
+            UsernameNotFoundException.class,
+
+    })
+    public ResponseEntity<ErrorDto> handleAuthenticationException(Exception ex) {
+        log.warn("Authentication failed: {}", ex.getMessage()); // log.warn, not log.error
+        log.info("Login or / and password are incorrect");
+        ErrorDto errorDto = new ErrorDto();
+        errorDto.setError("Invalid credentials"); // Generic message for security
+        return new ResponseEntity<>(errorDto, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ErrorDto> handleAccessDenied(AccessDeniedException ex) {
+        log.warn("Access denied: {}", ex.getMessage());
+        ErrorDto errorDto = new ErrorDto();
+        errorDto.setError("Access denied");
+        return new ResponseEntity<>(errorDto, HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler({
+                    EntityNotFoundException.class,
+                    UsernameNotFoundException.class
+    })
+    public ResponseEntity<ErrorDto> handleEntityNotFound(
+            EntityNotFoundException ex,
+            HttpServletRequest request) {
+        ErrorDto error = new ErrorDto(
+                ex.getMessage(),
+                request.getRequestURI(),   // → path
+                404,                       // → status
+                LocalDateTime.now()        // → timestamp
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
 
 
     @ExceptionHandler(UnauthorizedException.class)
