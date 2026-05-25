@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public interface UserService extends UserDetailsService {
     void createAdminUser(final Tenant tenant);
 
-    void createUser(final String userId, final UserRequest request);
+    void createUser(final UserRequest request);
 
      void updateUser(final String userId, final UserRequest request);
 
