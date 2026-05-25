@@ -18,6 +18,9 @@ public class CurrentTenantIdentifierResolverImpl  implements CurrentTenantIdenti
     public String resolveCurrentTenantIdentifier() {
         final String schema = TenantContext.getCurrentSchema();
         log.trace("Resolving current tenant identifier, current schema: {}", schema);
+        if (schema == null){
+            return "public";
+        }
         return schema;
     }
 

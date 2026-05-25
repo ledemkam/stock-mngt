@@ -1,4 +1,4 @@
-package com.kte.backend.config;
+package com.kte.backend.config.tenantConfig;
 
 
 import lombok.RequiredArgsConstructor;

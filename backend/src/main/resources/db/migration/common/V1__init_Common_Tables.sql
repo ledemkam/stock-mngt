@@ -12,7 +12,6 @@ create table tenants
     compagny_code   varchar(255) not null
         unique,
     compagny_name   varchar(255) not null,
-    created_by      varchar(255) not null,
     email           varchar(255) not null
         unique,
     id              varchar(255) not null
@@ -21,7 +20,6 @@ create table tenants
         constraint tenants_status_check
             check ((status)::text = ANY
                    ((ARRAY ['PENDING'::character varying, 'ACTIVE'::character varying, 'SUSPENDED'::character varying, 'INACTIVE'::character varying])::text[])),
-    update_by       varchar(255)
 );
 
 
