@@ -1,14 +1,13 @@
-package com.kte.backend.services.impl;
+package com.kte.backend.services.catalog.impl;
 
 import com.kte.backend.common.PageReponse;
 import com.kte.backend.entities.Category;
-import com.kte.backend.exceptions.DuplicateCategoryException;
+import com.kte.backend.exceptions.DuplicateEntityException;
 import com.kte.backend.mappers.CategoryMapper;
 import com.kte.backend.repositories.CategoryRepository;
 import com.kte.backend.dto.requests.CategoryRequest;
 import com.kte.backend.dto.responses.CategoryResponse;
-import com.kte.backend.services.CategoryService;
-import jakarta.persistence.EntityExistsException;
+import com.kte.backend.services.catalog.CategoryService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -88,7 +87,7 @@ public class CategoryServiceImpl implements CategoryService {
         log.info("Category found with name {}: {}", categoryName, category);
         if (category.isPresent()) {
             log.debug("Category with name {} already exists", categoryName);
-            throw new DuplicateCategoryException("Category already exists");
+            throw new DuplicateEntityException("Category already exists");
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.kte.backend.services.impl;
+package com.kte.backend.services.stock.impl;
 
 
 import com.kte.backend.common.PageReponse;
@@ -8,7 +8,7 @@ import com.kte.backend.repositories.ProductRepository;
 import com.kte.backend.repositories.StockMvtRepository;
 import com.kte.backend.dto.requests.StockMvtRequest;
 import com.kte.backend.dto.responses.StockMvtResponse;
-import com.kte.backend.services.StockMvtService;
+import com.kte.backend.services.stock.StockMvtService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -94,7 +94,6 @@ public class StockMvtServiceImpl implements StockMvtService {
                     return new EntityNotFoundException("Product not found");
                 });
     }
-
 
 
 

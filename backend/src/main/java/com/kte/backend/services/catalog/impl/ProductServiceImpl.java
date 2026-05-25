@@ -1,15 +1,15 @@
-package com.kte.backend.services.impl;
+package com.kte.backend.services.catalog.impl;
 
 
 import com.kte.backend.common.PageReponse;
 import com.kte.backend.entities.Product;
-import com.kte.backend.exceptions.DuplicateProductException;
+import com.kte.backend.exceptions.DuplicateEntityException;
 import com.kte.backend.mappers.ProductMapper;
 import com.kte.backend.repositories.CategoryRepository;
 import com.kte.backend.repositories.ProductRepository;
 import com.kte.backend.dto.requests.ProductRequest;
 import com.kte.backend.dto.responses.ProductResponse;
-import com.kte.backend.services.ProductService;
+import com.kte.backend.services.catalog.ProductService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -91,11 +91,10 @@ public class ProductServiceImpl implements ProductService {
 
 
     private void checkIfProductAlreadyExistByReference(final String reference) {
-        productRepository.findByNameIgnoreCase(reference)
-                .orElseThrow(() -> {
-                    log.debug("Product with reference {} already exists", reference);
-                    return new DuplicateProductException("Product already exists");
-                });
+        productRepository.findByNameIgnoreCase(reference).ifPresent(p -> {
+            log.debug("Product with reference {} already exists", reference);
+            throw new DuplicateEntityException("Product already exists");
+        });
     }
 
     private void checkIfCategoryExistById(final String categoryId) {

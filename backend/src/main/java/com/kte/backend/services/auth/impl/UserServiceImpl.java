@@ -1,7 +1,7 @@
-package com.kte.backend.services.impl;
+package com.kte.backend.services.auth.impl;
 
 import com.kte.backend.repositories.UserRepository;
-import com.kte.backend.services.UserService;
+import com.kte.backend.services.auth.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

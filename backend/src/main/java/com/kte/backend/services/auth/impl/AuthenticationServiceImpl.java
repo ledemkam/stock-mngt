@@ -1,10 +1,10 @@
-package com.kte.backend.services.impl;
+package com.kte.backend.services.auth.impl;
 
 import com.kte.backend.dto.requests.LoginRequest;
 import com.kte.backend.dto.responses.LoginReponse;
 import com.kte.backend.entities.User;
 import com.kte.backend.security.JwtTokenService;
-import com.kte.backend.services.AuthenticationService;
+import com.kte.backend.services.auth.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -1,4 +1,4 @@
-package com.kte.backend.services;
+package com.kte.backend.services.auth;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 
