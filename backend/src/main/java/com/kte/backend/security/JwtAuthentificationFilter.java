@@ -1,5 +1,6 @@
 package com.kte.backend.security;
 
+import com.kte.backend.config.TenantSchemaResolver;
 import com.kte.backend.config.tenantConfig.TenantContext;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -25,6 +26,7 @@ import java.util.Collections;
 public class JwtAuthentificationFilter extends OncePerRequestFilter {
 
     private  final JwtTokenService jwtTokenService;
+    private  final TenantSchemaResolver tenantSchemaResolver;
 
 
     @Override
@@ -48,8 +50,9 @@ public class JwtAuthentificationFilter extends OncePerRequestFilter {
                 final String role = jwtTokenService.getRoleFromToken(jwt);
 
                 if (tenantId != null) {
+                    //save tenant id and schemaName
                     TenantContext.setCurrentTenant(tenantId);
-                    final String schemaName = "not-yet-defibed";
+                    final String schemaName = tenantSchemaResolver.resolveTenantSchema(tenantId);
                     TenantContext.setCurrentSchema(schemaName);
                 }
 
