@@ -27,6 +27,7 @@ public class TenantMapper {
         return TenantResponse.builder()
                 .compagnyName(entity.getCompagnyName())
                 .compagnyCode(entity.getCompagnyCode())
+                .createdAt(entity.getCreatedAt())
                 .email(entity.getEmail())
                 .adminFullName(entity.getAdminFullName())
                 .adminUserName(entity.getAdminUserName())

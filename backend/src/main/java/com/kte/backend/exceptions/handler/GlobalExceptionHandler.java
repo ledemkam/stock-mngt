@@ -4,6 +4,7 @@ import com.kte.backend.common.PageReponse;
 import com.kte.backend.dto.ErrorDto;
 import com.kte.backend.exceptions.DuplicateEntityException;
 
+import com.kte.backend.exceptions.InvalidRequestException;
 import com.kte.backend.exceptions.UnauthorizedException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -75,6 +76,14 @@ public class GlobalExceptionHandler {
         ErrorDto errorDto = new ErrorDto();
         errorDto.setError("UNAUTHORIZED");
         return new ResponseEntity<>(errorDto, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(InvalidRequestException.class)
+    public ResponseEntity<ErrorDto> handleInvalidRequestException(InvalidRequestException ex) {
+        log.error("Invalid Request", ex);
+        ErrorDto errorDto = new ErrorDto();
+        errorDto.setError("INVALID_REQUEST");
+        return new ResponseEntity<>(errorDto, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(DuplicateEntityException.class)

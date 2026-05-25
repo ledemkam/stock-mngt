@@ -3,6 +3,8 @@ package com.kte.backend.dto.responses;
 import com.kte.backend.enums.TenantStatus;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Setter
 @Getter
 @Builder
@@ -25,6 +27,8 @@ public class TenantResponse {
     private String adminUserName;
 
     private String adminPassword;
+
+    private LocalDateTime createdAt;
 
     private TenantStatus status;
 }
