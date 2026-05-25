@@ -7,6 +7,7 @@ import com.kte.backend.exceptions.DuplicateEntityException;
 import com.kte.backend.repositories.UserRepository;
 import com.kte.backend.services.auth.UserService;
 import com.kte.backend.utils.NameUtils;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,7 +24,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+                .orElseThrow(() -> new EntityNotFoundException("User not found with username: " + username));
     }
 
     @Override
@@ -42,6 +43,5 @@ public class UserServiceImpl implements UserService {
                 .enable(true)
                 .build();
         userRepository.save(adminUser);
-        log.info("Created initial admin user for tenant {}: {}", tenant.getId(), adminUser);
     }
 }

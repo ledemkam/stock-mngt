@@ -44,7 +44,7 @@ public class User  extends AbstractEntity implements UserDetails {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Enumerated(String)
+    @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private UserRole role; // ex: "USER", "ADMIN"
 

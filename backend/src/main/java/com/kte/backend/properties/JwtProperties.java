@@ -16,5 +16,5 @@ public class JwtProperties {
 
     private String privateKeyPath;
     private String publicKeyPath;
-    private Duration accessTokenExpiration; // ex: 15m, 1h, 1d
+    private long accessTokenExpiration; // ex: 15m, 1h, 1d
 }

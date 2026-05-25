@@ -8,12 +8,14 @@ import com.kte.backend.services.auth.AuthenticationService;
 import com.kte.backend.services.tenant.TenantService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/api/v1/auth")
@@ -29,6 +31,7 @@ public class AuthenticationController {
             final LoginRequest request
             ){
         final LoginReponse response = authenticationService.login(request);
+        log.info("User {} logged in successfully for tenant {}", request.getUsername(),response.getAccessToken());
         return ResponseEntity.ok(response);
     }
 
@@ -39,6 +42,7 @@ public class AuthenticationController {
             final RegisterTenantRequest request
     ){
         tenantService.registerTenant(request);
+        log.info("Tenant registered successfully with name: {}", request.getCompagnyName());
         return ResponseEntity.ok().build();
     }
 

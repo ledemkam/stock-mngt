@@ -5,6 +5,7 @@ import com.kte.backend.dto.ErrorDto;
 import com.kte.backend.exceptions.DuplicateEntityException;
 
 import com.kte.backend.exceptions.InvalidRequestException;
+import com.kte.backend.exceptions.TenantProvisioningException;
 import com.kte.backend.exceptions.UnauthorizedException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -54,7 +55,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({
                     EntityNotFoundException.class,
-                    UsernameNotFoundException.class
     })
     public ResponseEntity<ErrorDto> handleEntityNotFound(
             EntityNotFoundException ex,
@@ -76,6 +76,14 @@ public class GlobalExceptionHandler {
         ErrorDto errorDto = new ErrorDto();
         errorDto.setError("UNAUTHORIZED");
         return new ResponseEntity<>(errorDto, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(TenantProvisioningException.class)
+    public ResponseEntity<ErrorDto> handleTenantProvisioningException(TenantProvisioningException ex) {
+        log.error("Caught TenantProvisionException", ex);
+        ErrorDto errorDto = new ErrorDto();
+        errorDto.setError("Failed to provision tenant: " + ex.getMessage());
+        return new ResponseEntity<>(errorDto, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(InvalidRequestException.class)

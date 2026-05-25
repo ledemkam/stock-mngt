@@ -3,6 +3,8 @@ package com.kte.backend.controllers;
 import com.kte.backend.common.PageReponse;
 import com.kte.backend.services.tenant.TenantService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/api/v1/tenants")
 public class TenantController {
 
+    private static final Logger log = LoggerFactory.getLogger(TenantController.class);
     private final TenantService tenantService;
 
 
@@ -20,6 +23,7 @@ public class TenantController {
             final String tenantId
     ) {
         tenantService.approveTenant(tenantId);
+        log.info("Tenant with id {} approved successfully", tenantId);
         return ResponseEntity.ok().build();
     }
 

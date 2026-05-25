@@ -10,6 +10,7 @@ import com.kte.backend.exceptions.InvalidRequestException;
 import com.kte.backend.mappers.TenantMapper;
 import com.kte.backend.repositories.TenantRepository;
 import com.kte.backend.services.auth.UserService;
+import com.kte.backend.services.tenant.ProvisioningService;
 import com.kte.backend.services.tenant.TenantService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -20,7 +21,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-@Transactional
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -30,8 +31,10 @@ public class TenantServiceImpl implements TenantService {
     private final TenantMapper tenantMapper;
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
+    private final ProvisioningService provisioningService;
 
     @Override
+    @Transactional
     public void registerTenant(final RegisterTenantRequest request) {
         // check if tenant already exist
       if(tenantRepository.existsByCompagnyCode(request.getCompagnyCode())){
@@ -65,8 +68,7 @@ public class TenantServiceImpl implements TenantService {
         //provision the schema for the tenant
             //we use trycatch here,because rollback
         try {
-
-
+        provisioningService.provisionTenant(tenant);
         //create initial admin user
         userService.createAdminUser(tenant);
         log.info("Tenant with id {} approved and initial admin user created", tenantId);

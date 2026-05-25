@@ -16,6 +16,7 @@ import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 import java.util.Date;
 
@@ -49,7 +50,7 @@ public class JwtTokenService {
             final String role
     ){
         final Date now = new Date();
-        final Date expiryDate = new Date(now.getTime() + jwtProperties.getAccessTokenExpiration().toMillis());
+        final Date expiryDate = new Date(System.currentTimeMillis() + jwtProperties.getAccessTokenExpiration());
         return Jwts.builder()
                 .subject(userId)
                 .claim("tenantId", tenantId)
@@ -139,7 +140,7 @@ public class JwtTokenService {
                     .replace("-----END PUBLIC KEY-----", "")
                     .replaceAll("\\s+", "");
             final byte[] decoded = Base64.getDecoder().decode(publicKeyPEM);
-            final PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(decoded);
+            final X509EncodedKeySpec keySpec = new X509EncodedKeySpec(decoded);
             return KeyFactory.getInstance("RSA").generatePublic(keySpec);
         }
     }
