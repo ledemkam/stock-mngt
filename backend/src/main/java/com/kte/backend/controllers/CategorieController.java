@@ -5,7 +5,7 @@ import com.kte.backend.common.PageReponse;
 import com.kte.backend.controllers.uicontrollers.UICategoryControllers;
 import com.kte.backend.dto.requests.CategoryRequest;
 import com.kte.backend.dto.responses.CategoryResponse;
-import com.kte.backend.services.CategoryService;
+import com.kte.backend.services.catalog.CategoryService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;

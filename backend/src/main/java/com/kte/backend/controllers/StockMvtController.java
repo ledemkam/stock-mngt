@@ -4,7 +4,7 @@ import com.kte.backend.common.PageReponse;
 import com.kte.backend.controllers.uicontrollers.UIStockMvtController;
 import com.kte.backend.dto.requests.StockMvtRequest;
 import com.kte.backend.dto.responses.StockMvtResponse;
-import com.kte.backend.services.StockMvtService;
+import com.kte.backend.services.stock.StockMvtService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;

@@ -4,7 +4,7 @@ import com.kte.backend.common.PageReponse;
 import com.kte.backend.controllers.uicontrollers.UIProductController;
 import com.kte.backend.dto.requests.ProductRequest;
 import com.kte.backend.dto.responses.ProductResponse;
-import com.kte.backend.services.ProductService;
+import com.kte.backend.services.catalog.ProductService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
