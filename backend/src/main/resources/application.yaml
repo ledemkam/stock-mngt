@@ -71,5 +71,12 @@ logging:
   include-application-group:
 
 
+springdoc:
+  default-produces-media-type: application/json
+  swagger-ui:
+    enabled: true
+    operations-sorter: true
+    tags-sorter: alpha
+
 
 
