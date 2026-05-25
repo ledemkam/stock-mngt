@@ -2,8 +2,7 @@ package com.kte.backend.exceptions.handler;
 
 import com.kte.backend.common.PageReponse;
 import com.kte.backend.dto.ErrorDto;
-import com.kte.backend.exceptions.DuplicateCategoryException;
-import com.kte.backend.exceptions.DuplicateProductException;
+import com.kte.backend.exceptions.DuplicateEntityException;
 
 import com.kte.backend.exceptions.UnauthorizedException;
 import jakarta.persistence.EntityNotFoundException;
@@ -78,19 +77,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDto, HttpStatus.UNAUTHORIZED);
     }
 
-    @ExceptionHandler(DuplicateProductException.class)
-    public ResponseEntity<ErrorDto> handleDuplicateProductException(DuplicateProductException ex) {
-        log.error("Caught DuplicateProductException", ex);
-       ErrorDto errorDto = new ErrorDto();
-        errorDto.setError("DUPLICATE_PRODUCT");
-        return new ResponseEntity<>(errorDto, HttpStatus.CONFLICT);
-    }
-
-    @ExceptionHandler(DuplicateCategoryException.class)
-    public ResponseEntity<ErrorDto> handleDuplicateCategoryException(DuplicateProductException ex) {
-        log.error("Caught DuplicateProductException", ex);
+    @ExceptionHandler(DuplicateEntityException.class)
+    public ResponseEntity<ErrorDto> handleDuplicateEntityException(DuplicateEntityException ex) {
+        log.error("Caught DuplicateEntityException: {}", ex.getMessage());
         ErrorDto errorDto = new ErrorDto();
-        errorDto.setError("DUPLICATE_PRODUCT");
+        errorDto.setError(ex.getMessage());
         return new ResponseEntity<>(errorDto, HttpStatus.CONFLICT);
     }
 
