@@ -1,5 +1,8 @@
 package com.kte.backend.mappers;
 
+import com.kte.backend.dto.requests.UserRequest;
+import com.kte.backend.dto.responses.UserResponse;
+import com.kte.backend.entities.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
