@@ -75,7 +75,7 @@ springdoc:
   default-produces-media-type: application/json
   swagger-ui:
     enabled: true
-    operations-sorter: true
+    operations-sorter: method
     tags-sorter: alpha
 
 

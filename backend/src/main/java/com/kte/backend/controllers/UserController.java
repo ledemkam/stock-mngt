@@ -29,7 +29,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    @PreAuthorize("hasRole('COMPANY_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_COMPAGNY_ADMIN')")
     public ResponseEntity<Void> createUser(
             @Valid
             @RequestBody
@@ -40,7 +40,7 @@ public class UserController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('COMPANY_ADMIN', 'ADMINISTRATOR')")
+    @PreAuthorize("hasAnyAuthority('ROLE_COMPAGNY_ADMIN', 'ROLE_PLATFORM_ADMIN')")
     public ResponseEntity<PageReponse<UserResponse>> getAllUsers(
             @RequestParam(name = "page", defaultValue = "0")
             final int page,
@@ -52,7 +52,7 @@ public class UserController {
     }
 
     @GetMapping("/{user-id}")
-    @PreAuthorize("hasAnyRole('COMPANY_ADMIN', 'ADMINISTRATOR')")
+    @PreAuthorize("hasAnyAuthority('ROLE_COMPAGNY_ADMIN', 'ROLE_PLATFORM_ADMIN')")
     public ResponseEntity<UserResponse> getUserById(
             @PathVariable("user-id")
             final String id) {
@@ -61,7 +61,7 @@ public class UserController {
     }
 
     @PutMapping("/{user-id}")
-    @PreAuthorize("hasRole('COMPANY_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_COMPAGNY_ADMIN')")
     public ResponseEntity<Void> updateUser(
             @PathVariable("user-id")
             final String id,
@@ -74,7 +74,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{user-id}")
-    @PreAuthorize("hasRole('COMPANY_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_COMPAGNY_ADMIN')")
     public ResponseEntity<Void> deleteUser(
             @PathVariable("user-id")
             final String id) {
@@ -84,7 +84,7 @@ public class UserController {
     }
 
     @PutMapping("/{user-id}/enable")
-    @PreAuthorize("hasRole('COMPANY_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_COMPAGNY_ADMIN')")
     public ResponseEntity<Void> enableUser(
             @PathVariable("user-id")
             final String id) {
@@ -94,7 +94,7 @@ public class UserController {
     }
 
     @PutMapping("/{user-id}/disable")
-    @PreAuthorize("hasRole('COMPANY_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_COMPAGNY_ADMIN')")
     public ResponseEntity<Void> disableUser(
             @PathVariable("user-id")
             final String id) {

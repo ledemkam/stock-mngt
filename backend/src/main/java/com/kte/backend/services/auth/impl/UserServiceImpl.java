@@ -21,6 +21,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -31,6 +32,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final TenantRepository tenantRepository;
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
  //UserService(CRUD Management) method implementations
  @Override
@@ -54,6 +56,7 @@ public class UserServiceImpl implements UserService {
      }
 
      final User user = this.userMapper.toEntity(request);
+     user.setPassword(passwordEncoder.encode(request.getPassword()));
      user.setTenant(Tenant.builder().id(tenantId).build());
 
      userRepository.save(user);
@@ -189,7 +192,7 @@ public class UserServiceImpl implements UserService {
         final User adminUser = User.builder()
                 .username(tenant.getAdminUserName())
                 .email(tenant.getAdminEmail())
-                .password(tenant.getAdminPassword())
+                .password(passwordEncoder.encode(tenant.getAdminPassword()))
                 .firstName(NameUtils.extractFirstName(tenant.getAdminFullName()))
                 .lastName(NameUtils.extractLastName(tenant.getAdminFullName()))
                 .role(UserRole.ROLE_COMPAGNY_ADMIN)

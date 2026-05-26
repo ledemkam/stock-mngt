@@ -48,7 +48,7 @@ public class MultiTenantConnectionProviderImpl implements MultiTenantConnectionP
     @Override
     public void releaseConnection(final String tenantIdentifier, Connection connection) throws SQLException {
         try {
-                connection.createStatement().execute("SET search_path TO , public");
+                connection.createStatement().execute("SET search_path TO public");
 
         } catch (final SQLException e) {
             log.error("Error getting connection for tenant {}: {}", tenantIdentifier, e.getMessage());
