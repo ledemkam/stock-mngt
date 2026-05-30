@@ -1,4 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
 
-@use "primeicons/primeicons.css";
-@use "primeflex/primeflex.css";
+@import "primeflex/primeflex.css";
+@import "primeicons/primeicons.css";
+
+
+
+
+
+.p-inputtext.ng-invalid.ng-touched,
+.p-textarea.ng-invalid.ng-touched,
+.p-select.ng-invalid.ng-touched {
+  border-color: var(--p-inputtext-invalid-border-color);
+}
+
+.invalid-feedback {
+  display: none;
+  color: var(--p-red-500);
+}
+
+.ng-invalid.ng-dirty + .invalid-feedback,
+.ng-invalid.ng-touched + .invalid-feedback {
+  display: block;
+}
