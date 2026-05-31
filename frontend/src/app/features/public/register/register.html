@@ -1,1 +1,40 @@
-<p>register works!</p>
+<p-toast position="top-right" />
+<div class="flex justify-content-center align-items-center">
+  <form [formGroup]="form"  class="flex flex-column gap-3" (ngSubmit)="submit()" >
+    <div>
+      <h1>
+        Compagny Infos
+      </h1>
+    </div>
+    <div>
+      <p-floatlabel variant="on">
+        <input pInputText id="username" formControlName="username" autocomplete="off" />
+        <label for="username">username</label>
+      </p-floatlabel>
+
+      <small class="invalid-feedback" variant="simple" size="small">Username is required</small>
+
+    </div>
+
+    <div>
+      <p-floatlabel variant="on">
+        <input pInputText id="password" formControlName="password" type="password" autocomplete="off" />
+        <label for="password">password</label>
+      </p-floatlabel>
+
+      <small class="invalid-feedback" variant="simple" size="small">Username is required</small>
+
+
+    </div>
+
+    <div class="card flex justify-center">
+      <p-button  [loading]="submitting()" label="einloggen" type="submit" />
+    </div>
+
+    <div class="card flex justify-center">
+      <p-button
+        label="registrieren"
+        variant="text"
+        severity="info"
+        (onClick)="navigateToRegister()" />
+    </div>

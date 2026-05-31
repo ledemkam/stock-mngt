@@ -6,6 +6,7 @@ import {AuthenticationControllerService} from '@app/api-services/services/authen
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MessageService} from 'primeng/api';
 import {Toast} from 'primeng/toast';
+import {TokenService} from '@app/core/token/token-service';
 
 @Component({
   selector: 'app-login',
@@ -23,6 +24,7 @@ export class Login {
   readonly #messageService = inject(MessageService)
   readonly #router = inject(Router)
   readonly #authService = inject(AuthenticationControllerService)
+  readonly  #tokenService = inject(TokenService);
 
   form = new FormGroup({
     username: new FormControl('', {
@@ -50,7 +52,8 @@ export class Login {
     const body = this.form.getRawValue()
     this.submitting.set(true)
     this.#authService.login({ body }).subscribe({
-      next: () => {
+      next: (res) => {
+        this.#tokenService.saveToken(res)
         this.submitting.set(false)
         void this.#router.navigate([''])
       },
@@ -68,4 +71,17 @@ export class Login {
   navigateToRegister() {
     void this.#router.navigate(['registrieren'])
   }
+
+  private navigateUser(){
+    if (this.#tokenService.isPlatformAdmin){
+      this.#router.navigate(['administration']);
+    }else if (this.#tokenService.isCompagnyAdmin ||
+              this.#tokenService.isAdministrator ||
+              this.#tokenService.isSalesOperator ||
+              this.#tokenService.isUser){
+      this.#router.navigate(['app']);
+    }
+  }
+
+
 }
