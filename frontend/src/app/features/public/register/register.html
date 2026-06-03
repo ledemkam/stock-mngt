@@ -1,40 +1,123 @@
 <p-toast position="top-right" />
-<div class="flex justify-content-center align-items-center">
-  <form [formGroup]="form"  class="flex flex-column gap-3" (ngSubmit)="submit()" >
-    <div>
-      <h1>
-        Compagny Infos
-      </h1>
+<div class="register-bg">
+
+  <!-- Top Navigation -->
+  <div class="register-nav">
+    <div class="brand-logo">
+      <div class="logo-icon">
+        <i class="pi pi-box"></i>
+      </div>
+      <span [routerLink]="'/'" class="logo-text">StockFlow</span>
     </div>
-    <div>
-      <p-floatlabel variant="on">
-        <input pInputText id="username" formControlName="username" autocomplete="off" />
-        <label for="username">username</label>
-      </p-floatlabel>
+  </div>
 
-      <small class="invalid-feedback" variant="simple" size="small">Username is required</small>
+  <!-- Registration Card -->
+  <div class="register-container">
+    <div class="register-card">
+
+      <div class="card-header">
+        <h1>Create your account</h1>
+        <p>Set up your company workspace and admin credentials</p>
+      </div>
+
+      <div class="sections-wrapper">
+
+        <!-- Company Info -->
+        <form class="form-section"  [formRoot]="registerForm">
+          <div class="section-header">
+            <div class="section-icon icon-blue">
+              <i class="pi pi-briefcase"></i>
+            </div>
+            <div>
+              <h3>Company Information</h3>
+              <p>Details about your organization</p>
+            </div>
+          </div>
+          <div class="form-fields">
+            <div class="form-row">
+              <div class="form-field">
+                <p-floatlabel variant="on">
+                  <input pInputText id="companyName"  [formField]="registerForm.compagnyName" autocomplete="off" class="full-width-input" />
+                  <label for="companyName">Company name</label>
+                </p-floatlabel>
+
+              </div>
+              <div class="form-field">
+                <p-floatlabel variant="on">
+                  <input pInputText id="companyCode"  [formField]="registerForm.compagnyCode" autocomplete="off" class="full-width-input" />
+                  <label for="companyCode">Company code</label>
+                </p-floatlabel>
+
+              </div>
+            </div>
+            <div class="form-field">
+              <p-floatlabel variant="on">
+                <input pInputText id="email"  [formField]="registerForm.email" autocomplete="off" class="full-width-input" />
+                <label for="email">Company email</label>
+              </p-floatlabel>
+
+            </div>
+          </div>
+        </form>
+
+        <p-divider />
+
+        <!-- Admin Info -->
+        <div class="form-section">
+          <div class="section-header">
+            <div class="section-icon icon-purple">
+              <i class="pi pi-user"></i>
+            </div>
+            <div>
+              <h3>Admin Account</h3>
+              <p>Set up your administrator credentials</p>
+            </div>
+          </div>
+          <div class="form-fields">
+            <div class="form-row">
+              <div class="form-field">
+                <p-floatlabel variant="on">
+                  <input pInputText id="adminFullName"  [formField]="registerForm.adminFullName" autocomplete="off" class="full-width-input" />
+                  <label for="adminFullName">Full name</label>
+                </p-floatlabel>
+
+              </div>
+              <div class="form-field">
+                <p-floatlabel variant="on">
+                  <input pInputText id="adminUsername"  [formField]="registerForm.adminUserName" autocomplete="off" class="full-width-input" />
+                  <label for="adminUsername">Username</label>
+                </p-floatlabel>
+
+              </div>
+            </div>
+            <div class="form-field">
+              <p-floatlabel variant="on">
+                <input pInputText id="adminEmail"  [formField]="registerForm.adminEmail" autocomplete="off" class="full-width-input" />
+                <label for="adminEmail">Admin email</label>
+              </p-floatlabel>
+
+            </div>
+            <div class="form-field">
+              <p-floatlabel variant="on">
+                <input type="password" pInputText id="adminPassword"  [formField]="registerForm.adminPassword" autocomplete="off" class="full-width-input" />
+                <label for="adminPassword">Password</label>
+              </p-floatlabel>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="card-actions">
+        <p-button label="Create Account" icon="pi pi-check" iconPos="right" [style]="{'width': '100%'}" [loading]="submitting()" />
+        <div class="login-link">
+          <span>Already have an account?</span>
+          <p-button label="Sign in" variant="text" severity="info" (onClick)="navigateToLogin()" />
+        </div>
+      </div>
 
     </div>
+  </div>
 
-    <div>
-      <p-floatlabel variant="on">
-        <input pInputText id="password" formControlName="password" type="password" autocomplete="off" />
-        <label for="password">password</label>
-      </p-floatlabel>
-
-      <small class="invalid-feedback" variant="simple" size="small">Username is required</small>
-
-
-    </div>
-
-    <div class="card flex justify-center">
-      <p-button  [loading]="submitting()" label="einloggen" type="submit" />
-    </div>
-
-    <div class="card flex justify-center">
-      <p-button
-        label="registrieren"
-        variant="text"
-        severity="info"
-        (onClick)="navigateToRegister()" />
-    </div>
+</div>

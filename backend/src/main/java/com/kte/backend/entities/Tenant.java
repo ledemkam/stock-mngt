@@ -8,6 +8,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import java.time.LocalDateTime;
+
+import static jakarta.persistence.GenerationType.UUID;
+
 @Entity
 @Getter
 @Setter
@@ -15,7 +23,13 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "tenants")
-public class Tenant extends AbstractEntity{
+public class Tenant {
+
+    @Id
+    @GeneratedValue(strategy = UUID)
+    @Column(name = "id", updatable = false, nullable = false)
+    private String id;
+
 
     @Column(name = "compagny_name", nullable = false)
     private String compagnyName;
@@ -44,6 +58,32 @@ public class Tenant extends AbstractEntity{
 
     @Column(name = "admin_password", nullable = false)
     private String adminPassword;
+
+    @CreatedDate
+    @Column(name = "created_at", updatable = false, nullable = false)
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    @Column(name = "updated_at", insertable = false)
+    private LocalDateTime updatedAt;
+
+
+
+    @LastModifiedBy
+    @Column(name = "update_by", insertable = false)
+    private String updateBy;
+
+    @Column(name = "deleted", updatable = false, nullable = false)
+    private Boolean deleted;
+
+    @PrePersist
+    protected void oncreate() {
+        if (this.deleted == null) {
+            this.deleted = Boolean.FALSE;
+        }
+
+
+    }
 
 
 

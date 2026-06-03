@@ -20,6 +20,7 @@ public class TenantMapper {
                 .adminUserName(request.getAdminUserName())
                 //.adminPassword(request.getAdminPassword()) ->here can ignored,direct implement in service
                 .adminEmail(request.getAdminEmail())
+                .deleted(false)
                 .build();
     }
 
