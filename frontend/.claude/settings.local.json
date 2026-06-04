@@ -1,7 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "PowerShell(npm show \"typescript@~5.9.0\" version --json 2>$null)"
-    ]
-  }
-}
