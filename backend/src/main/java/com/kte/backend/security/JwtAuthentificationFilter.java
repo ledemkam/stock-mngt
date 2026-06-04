@@ -69,11 +69,13 @@ public class JwtAuthentificationFilter extends OncePerRequestFilter {
 
                 log.debug("Authentication set for userId: {}, tenantId: {}, role: {}", userId, tenantId, role);
             }
-        }catch(final Exception e){
-            log.error("Error authenticating user");
+        } catch (final Exception e) {
+            log.error("Error authenticating user: {}", e.getMessage(), e);
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
         }
 
-        filterChain.doFilter(request,response);
+        filterChain.doFilter(request, response);
 
         TenantContext.clear();
 

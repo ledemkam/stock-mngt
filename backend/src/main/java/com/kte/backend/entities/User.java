@@ -52,6 +52,11 @@ public class User  extends AbstractEntity implements UserDetails {
     private  Boolean enable;
 
     @Override
+    public boolean isEnabled() {
+        return Boolean.TRUE.equals(this.enable);
+    }
+
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(this.role.name()));
     }

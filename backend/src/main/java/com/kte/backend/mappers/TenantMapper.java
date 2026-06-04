@@ -26,6 +26,7 @@ public class TenantMapper {
 
     public TenantResponse toResponse(final Tenant entity){
         return TenantResponse.builder()
+                .tenantId(entity.getId())
                 .compagnyName(entity.getCompagnyName())
                 .compagnyCode(entity.getCompagnyCode())
                 .createdAt(entity.getCreatedAt())

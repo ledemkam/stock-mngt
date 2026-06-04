@@ -24,7 +24,9 @@ public class ProvisioningServiceImpl implements ProvisioningService {
 
     @Override
     public void provisionTenant(Tenant tenant) {
-        final String  schemaName = "tenant_" + tenant.getCompagnyName().toLowerCase();
+        final String schemaName = "tenant_" + tenant.getCompagnyName()
+                .toLowerCase()
+                .replaceAll("[^a-z0-9]+", "_");
 
         try{
             log.info("Provisioning tenant {} with schema name: {}",tenant.getCompagnyName(), schemaName);
@@ -37,7 +39,7 @@ public class ProvisioningServiceImpl implements ProvisioningService {
             log.info("Flyway migrations executed successfully for tenant {}",schemaName);
 
             //3.Initialize the default data(optionel)
-            initialiazeDefaultData(schemaName,tenant);
+            initializeDefaultData(schemaName,tenant);
 
         } catch (final  Exception e) {
             log.error("Failled provisioning tenant {}: {}", tenant.getCompagnyName(), e.getMessage(), e);
@@ -54,10 +56,20 @@ public class ProvisioningServiceImpl implements ProvisioningService {
 
     }
 
-    private void runTenantMigration(String schemaName) {
-        log.info("Running Flyway migrations for tenant schema: {}", schemaName);
+    private void dropSchema(final String schemaName) {
+        final String sql = String.format("DROP SCHEMA IF EXISTS %s CASCADE", schemaName);
+        this.jdbcTemplate.execute(sql);
+    }
+
+    private void createSchema(final String schemaName) {
+        final String sql = String.format("CREATE SCHEMA IF NOT EXISTS %s", schemaName);
+        this.jdbcTemplate.execute(sql);
+    }
+
+    private void runTenantMigration(final String schemaName) {
+        log.info("Running tenant migrations for schema: {}", schemaName);
         final Flyway tenantFlyway = Flyway.configure()
-                .dataSource(dataSource)
+                .dataSource(this.dataSource)
                 .schemas(schemaName)
                 .locations("classpath:db/migration/tenant")
                 .baselineOnMigrate(true)
@@ -66,26 +78,13 @@ public class ProvisioningServiceImpl implements ProvisioningService {
                 .cleanDisabled(true)
                 .load();
 
-        log.info("Starting Flyway migration for tenant schema: {}", schemaName);
+        log.info("Tenant migrations started");
         tenantFlyway.migrate();
-        log.info("Flyway migration completed for tenant schema: {}", schemaName);
-
+        log.info("Tenant migrations completed");
     }
 
-    private void createSchema(final  String schemaName){
-        final String sql = String.format("CREATE SCHEMA IF NOT EXISTS %s", schemaName);
-        jdbcTemplate.execute(sql);
-    }
-
-    private void initialiazeDefaultData(final String schemaName,final Tenant tenant){
-        log.info("Initializing default data for tenant schema: {}", schemaName);
-        // Example: Insert default settings for the tenant
-
-    }
-
-    private void dropSchema(final String schemaName){
-        log.info("Dropping schema {} for tenant", schemaName);
-        final String sql = String.format("DROP SCHEMA IF EXISTS %s CASCADE", schemaName);
-        jdbcTemplate.execute(sql);
+    private void initializeDefaultData(final String schemaName, final Tenant tenant) {
+        log.info("Initializing default data for tenant: {}", tenant.getCompagnyName(),schemaName);
+        // here you can add default data initialization code
     }
 }

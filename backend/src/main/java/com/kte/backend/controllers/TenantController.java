@@ -1,19 +1,20 @@
 package com.kte.backend.controllers;
 
 import com.kte.backend.common.PageReponse;
+import com.kte.backend.dto.responses.TenantResponse;
 import com.kte.backend.services.tenant.TenantService;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/api/v1/tenants")
+@Slf4j
 public class TenantController {
 
-    private static final Logger log = LoggerFactory.getLogger(TenantController.class);
     private final TenantService tenantService;
 
 
@@ -56,7 +57,7 @@ public class TenantController {
     }
 
     @GetMapping
-    public ResponseEntity<PageReponse> findAllTenants(
+    public ResponseEntity<PageReponse<TenantResponse>> findAllTenants(
             @RequestParam(name = "page", defaultValue = "0")
             final int page,
             @RequestParam(name = "size", defaultValue = "10")
