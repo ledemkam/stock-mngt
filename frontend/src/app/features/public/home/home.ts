@@ -1,11 +1,15 @@
 import {Component, inject} from '@angular/core';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {Button} from 'primeng/button';
+import {FormField, FormRoot} from '@angular/forms/signals';
 
 @Component({
   selector: 'app-home',
   imports: [
-    Button
+    Button,
+    FormRoot,
+    FormField,
+    RouterLink
   ],
   templateUrl: './home.html',
   styleUrl: './home.scss',

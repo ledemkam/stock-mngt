@@ -1,7 +1,115 @@
-<div>
-   <div class="flex justify-content-end">
-     <p-button label="sich einloggen"  variant="text" severity="info" (onClick)="navigateToLogin()"/>
-     <p-button label="sich registrieren" (onClick)="navigateToRegister()"/>
+<div class="home-container">
 
-   </div>
+  <!-- Navigation -->
+  <nav class="home-nav">
+    <div class="nav-brand">
+      <div class="brand-icon">
+        <i class="pi pi-box"></i>
+      </div>
+      <span class="brand-name">StockFlow</span>
+    </div>
+    <div class="nav-actions">
+      <p-button label="Login" variant="text" (onClick)="navigateToLogin()" />
+      <p-button label="Get Started" icon="pi pi-arrow-right" iconPos="right" (onClick)="navigateToRegister()" />
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="pi pi-star-fill"></i>
+        Multi-Tenant Stock Management Platform
+      </div>
+      <h1 class="hero-title">
+        Manage Inventory
+        <span class="gradient-text">at Scale</span>
+      </h1>
+      <p class="hero-description">
+        A powerful multi-tenant stock management solution built for modern businesses.
+        Track products, categories, and stock movements — all in one place with role-based access control.
+      </p>
+      <div class="hero-actions">
+        <p-button label="Start Free Trial" size="large" icon="pi pi-arrow-right" iconPos="right" (onClick)="navigateToRegister()" />
+        <p-button label="Sign In" size="large" variant="outlined" (onClick)="navigateToLogin()" />
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="mock-dashboard">
+        <div class="mock-header">
+          <div class="mock-dots">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+          <span class="mock-title">Dashboard</span>
+        </div>
+        <div class="mock-stats">
+          <div class="mock-stat">
+            <i class="pi pi-box"></i>
+            <div class="mock-stat-info">
+              <span class="mock-stat-value">1,234</span>
+              <span class="mock-stat-label">Products</span>
+            </div>
+          </div>
+          <div class="mock-stat">
+            <i class="pi pi-tag"></i>
+            <div class="mock-stat-info">
+              <span class="mock-stat-value">56</span>
+              <span class="mock-stat-label">Categories</span>
+            </div>
+          </div>
+          <div class="mock-stat">
+            <i class="pi pi-chart-bar"></i>
+            <div class="mock-stat-info">
+              <span class="mock-stat-value">892</span>
+              <span class="mock-stat-label">Movements</span>
+            </div>
+          </div>
+        </div>
+        <div class="mock-bars">
+          <div class="mock-bar" style="height: 55%"></div>
+          <div class="mock-bar" style="height: 80%"></div>
+          <div class="mock-bar" style="height: 40%"></div>
+          <div class="mock-bar" style="height: 95%"></div>
+          <div class="mock-bar" style="height: 65%"></div>
+          <div class="mock-bar" style="height: 75%"></div>
+          <div class="mock-bar" style="height: 50%"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <div class="features-header">
+      <h2>Everything you need to run your business</h2>
+      <p>A complete toolkit for modern inventory management</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon-wrap icon-blue">
+          <i class="pi pi-box"></i>
+        </div>
+        <h3>Product Catalog</h3>
+        <p>Manage your complete product catalog with categories, descriptions, and real-time stock levels.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon-wrap icon-purple">
+          <i class="pi pi-list"></i>
+        </div>
+        <h3>Stock Movements</h3>
+        <p>Track every inbound and outbound movement with a full audit trail and history.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon-wrap icon-green">
+          <i class="pi pi-users"></i>
+        </div>
+        <h3>Team & Roles</h3>
+        <p>Manage team members with granular role-based permissions for your organization.</p>
+      </div>
+    </div>
+  </section>
+
 </div>
