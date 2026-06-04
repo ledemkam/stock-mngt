@@ -163,6 +163,21 @@
   font-size: 0.8rem;
 }
 
+// ─── FormField Input Styles ────────────────────────────────────────────────
+
+// Override FormField default styles - only show red border if there's an actual error message
+
+input.ng-touched {
+  &:not(.ng-invalid) {
+    border-color: inherit !important;
+    box-shadow: none !important;
+  }
+
+  &.ng-invalid {
+    border-color: #ef4444 !important; // Red only if actually invalid
+  }
+}
+
 // ─── Actions ──────────────────────────────────────────────────────────────────
 
 .card-actions {

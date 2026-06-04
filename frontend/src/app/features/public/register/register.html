@@ -20,102 +20,128 @@
         <p>Set up your company workspace and admin credentials</p>
       </div>
 
-      <div class="sections-wrapper">
+      <form [formRoot]="registerForm" [class.form-submitted]="formSubmitted()">
 
-        <!-- Company Info -->
-        <form class="form-section"  [formRoot]="registerForm">
-          <div class="section-header">
-            <div class="section-icon icon-blue">
-              <i class="pi pi-briefcase"></i>
+        <div class="sections-wrapper">
+
+          <!-- Company Info -->
+          <div class="form-section">
+            <div class="section-header">
+              <div class="section-icon icon-blue">
+                <i class="pi pi-briefcase"></i>
+              </div>
+              <div>
+                <h3>Company Information</h3>
+                <p>Details about your organization</p>
+              </div>
             </div>
-            <div>
-              <h3>Company Information</h3>
-              <p>Details about your organization</p>
+            <div class="form-fields">
+              <div class="form-row">
+                <div class="form-field">
+                  <p-floatlabel variant="on">
+                    <input pInputText id="companyName" [formField]="registerForm.compagnyName" autocomplete="off" class="full-width-input" />
+                    <label for="companyName">Company name</label>
+                  </p-floatlabel>
+                  @if (hasError('companyName')) {
+                    <small class="field-error">{{ getErrorMsg('companyName') }}</small>
+                  }
+                </div>
+                <div class="form-field">
+                  <p-floatlabel variant="on">
+                    <input pInputText id="companyCode" [formField]="registerForm.compagnyCode" autocomplete="off" class="full-width-input" />
+                    <label for="companyCode">Company code</label>
+                  </p-floatlabel>
+                  @if (hasError('companyCode')) {
+                    <small class="field-error">{{ getErrorMsg('companyCode') }}</small>
+                  }
+                </div>
+              </div>
+              <div class="form-field">
+                <p-floatlabel variant="on">
+                  <input pInputText id="email" [formField]="registerForm.email" autocomplete="off" class="full-width-input" />
+                  <label for="email">Company email</label>
+                </p-floatlabel>
+                @if (hasError('email')) {
+                  <small class="field-error">{{ getErrorMsg('email') }}</small>
+                }
+              </div>
             </div>
           </div>
-          <div class="form-fields">
-            <div class="form-row">
-              <div class="form-field">
-                <p-floatlabel variant="on">
-                  <input pInputText id="companyName"  [formField]="registerForm.compagnyName" autocomplete="off" class="full-width-input" />
-                  <label for="companyName">Company name</label>
-                </p-floatlabel>
 
+          <p-divider />
+
+          <!-- Admin Info -->
+          <div class="form-section">
+            <div class="section-header">
+              <div class="section-icon icon-purple">
+                <i class="pi pi-user"></i>
               </div>
-              <div class="form-field">
-                <p-floatlabel variant="on">
-                  <input pInputText id="companyCode"  [formField]="registerForm.compagnyCode" autocomplete="off" class="full-width-input" />
-                  <label for="companyCode">Company code</label>
-                </p-floatlabel>
-
+              <div>
+                <h3>Admin Account</h3>
+                <p>Set up your administrator credentials</p>
               </div>
             </div>
-            <div class="form-field">
-              <p-floatlabel variant="on">
-                <input pInputText id="email"  [formField]="registerForm.email" autocomplete="off" class="full-width-input" />
-                <label for="email">Company email</label>
-              </p-floatlabel>
-
+            <div class="form-fields">
+              <div class="form-row">
+                <div class="form-field">
+                  <p-floatlabel variant="on">
+                    <input pInputText id="adminFullName" [formField]="registerForm.adminFullName" autocomplete="off" class="full-width-input" />
+                    <label for="adminFullName">Full name</label>
+                  </p-floatlabel>
+                  @if (hasError('adminFullName')) {
+                    <small class="field-error">{{ getErrorMsg('adminFullName') }}</small>
+                  }
+                </div>
+                <div class="form-field">
+                  <p-floatlabel variant="on">
+                    <input pInputText id="adminUsername" [formField]="registerForm.adminUserName" autocomplete="off" class="full-width-input" />
+                    <label for="adminUsername">Username</label>
+                  </p-floatlabel>
+                  @if (hasError('adminUsername')) {
+                    <small class="field-error">{{ getErrorMsg('adminUsername') }}</small>
+                  }
+                </div>
+              </div>
+              <div class="form-field">
+                <p-floatlabel variant="on">
+                  <input pInputText id="adminEmail" [formField]="registerForm.adminEmail" autocomplete="off" class="full-width-input" />
+                  <label for="adminEmail">Admin email</label>
+                </p-floatlabel>
+                @if (hasError('adminEmail')) {
+                  <small class="field-error">{{ getErrorMsg('adminEmail') }}</small>
+                }
+              </div>
+              <div class="form-field">
+                <p-floatlabel variant="on">
+                  <input type="password" pInputText id="adminPassword" [formField]="registerForm.adminPassword" autocomplete="off" class="full-width-input" />
+                  <label for="adminPassword">Password</label>
+                </p-floatlabel>
+                @if (hasError('adminPassword')) {
+                  <small class="field-error">{{ getErrorMsg('adminPassword') }}</small>
+                }
+              </div>
             </div>
           </div>
-        </form>
 
-        <p-divider />
+        </div>
 
-        <!-- Admin Info -->
-        <div class="form-section">
-          <div class="section-header">
-            <div class="section-icon icon-purple">
-              <i class="pi pi-user"></i>
-            </div>
-            <div>
-              <h3>Admin Account</h3>
-              <p>Set up your administrator credentials</p>
-            </div>
-          </div>
-          <div class="form-fields">
-            <div class="form-row">
-              <div class="form-field">
-                <p-floatlabel variant="on">
-                  <input pInputText id="adminFullName"  [formField]="registerForm.adminFullName" autocomplete="off" class="full-width-input" />
-                  <label for="adminFullName">Full name</label>
-                </p-floatlabel>
-
-              </div>
-              <div class="form-field">
-                <p-floatlabel variant="on">
-                  <input pInputText id="adminUsername"  [formField]="registerForm.adminUserName" autocomplete="off" class="full-width-input" />
-                  <label for="adminUsername">Username</label>
-                </p-floatlabel>
-
-              </div>
-            </div>
-            <div class="form-field">
-              <p-floatlabel variant="on">
-                <input pInputText id="adminEmail"  [formField]="registerForm.adminEmail" autocomplete="off" class="full-width-input" />
-                <label for="adminEmail">Admin email</label>
-              </p-floatlabel>
-
-            </div>
-            <div class="form-field">
-              <p-floatlabel variant="on">
-                <input type="password" pInputText id="adminPassword"  [formField]="registerForm.adminPassword" autocomplete="off" class="full-width-input" />
-                <label for="adminPassword">Password</label>
-              </p-floatlabel>
-
-            </div>
+        <div class="card-actions">
+          <p-button
+            [label]="registerForm().submitting() ? 'Creating...' : 'Create Account'"
+            type="submit"
+            icon="pi pi-check"
+            iconPos="right"
+            [style]="{'width': '100%'}"
+            [loading]="registerForm().submitting()"
+            (onClick)="onSubmit()"
+          />
+          <div class="login-link">
+            <span>Already have an account?</span>
+            <p-button label="Sign in" variant="text" severity="info" (onClick)="navigateToLogin()" />
           </div>
         </div>
 
-      </div>
-
-      <div class="card-actions">
-        <p-button label="Create Account" icon="pi pi-check" iconPos="right" [style]="{'width': '100%'}" [loading]="submitting()" />
-        <div class="login-link">
-          <span>Already have an account?</span>
-          <p-button label="Sign in" variant="text" severity="info" (onClick)="navigateToLogin()" />
-        </div>
-      </div>
+      </form>
 
     </div>
   </div>
