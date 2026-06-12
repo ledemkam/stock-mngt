@@ -37,8 +37,6 @@ jobs:
           java -version
           ./mvnw -v
 
-      - name: Build (skip tests)
-        run: ./mvnw -B -DskipTests package
 
       - name: Run all tests
         # Covers unit tests AND @DataJpaTest repository tests (H2 in-memory, no Docker needed)
