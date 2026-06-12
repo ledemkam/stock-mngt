@@ -1,6 +1,7 @@
 package com.kte.backend.controllers;
 
 
+import com.kte.backend.controllers.uicontrollers.UIAuthenticationController;
 import com.kte.backend.dto.requests.LoginRequest;
 import com.kte.backend.dto.requests.RegisterTenantRequest;
 import com.kte.backend.dto.responses.LoginReponse;
@@ -19,11 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/api/v1/auth")
-public class AuthenticationController {
+public class AuthenticationController implements UIAuthenticationController {
 
     private final AuthenticationService authenticationService;
     private final TenantService tenantService;
 
+    @Override
     @PostMapping(path = "/login")
     public ResponseEntity<LoginReponse> login (
             @Valid
@@ -35,7 +37,8 @@ public class AuthenticationController {
         return ResponseEntity.ok(response);
     }
 
-   @PostMapping(path = "/register")
+    @Override
+    @PostMapping(path = "/register")
     public ResponseEntity<Void> register(
             @Valid
             @RequestBody

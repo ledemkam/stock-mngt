@@ -3,8 +3,8 @@ package com.kte.backend.controllers;
 import com.kte.backend.common.PageReponse;
 import com.kte.backend.dto.requests.UserRequest;
 import com.kte.backend.dto.responses.UserResponse;
+import com.kte.backend.controllers.uicontrollers.UIUserController;
 import com.kte.backend.services.auth.UserService;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,11 +23,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
-@Tag(name = "User", description = "User API")
-public class UserController {
+public class UserController implements UIUserController {
 
     private final UserService userService;
 
+    @Override
     @PostMapping
     @PreAuthorize("hasAuthority('ROLE_COMPAGNY_ADMIN')")
     public ResponseEntity<Void> createUser(
@@ -39,6 +39,7 @@ public class UserController {
                 .build();
     }
 
+    @Override
     @GetMapping
     @PreAuthorize("hasAnyAuthority('ROLE_COMPAGNY_ADMIN', 'ROLE_PLATFORM_ADMIN')")
     public ResponseEntity<PageReponse<UserResponse>> getAllUsers(
@@ -51,6 +52,7 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
+    @Override
     @GetMapping("/{user-id}")
     @PreAuthorize("hasAnyAuthority('ROLE_COMPAGNY_ADMIN', 'ROLE_PLATFORM_ADMIN')")
     public ResponseEntity<UserResponse> getUserById(
@@ -60,6 +62,7 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
+    @Override
     @PutMapping("/{user-id}")
     @PreAuthorize("hasAuthority('ROLE_COMPAGNY_ADMIN')")
     public ResponseEntity<Void> updateUser(
@@ -73,6 +76,7 @@ public class UserController {
                 .build();
     }
 
+    @Override
     @DeleteMapping("/{user-id}")
     @PreAuthorize("hasAuthority('ROLE_COMPAGNY_ADMIN')")
     public ResponseEntity<Void> deleteUser(
@@ -83,6 +87,7 @@ public class UserController {
                 .build();
     }
 
+    @Override
     @PutMapping("/{user-id}/enable")
     @PreAuthorize("hasAuthority('ROLE_COMPAGNY_ADMIN')")
     public ResponseEntity<Void> enableUser(
@@ -93,6 +98,7 @@ public class UserController {
                 .build();
     }
 
+    @Override
     @PutMapping("/{user-id}/disable")
     @PreAuthorize("hasAuthority('ROLE_COMPAGNY_ADMIN')")
     public ResponseEntity<Void> disableUser(
