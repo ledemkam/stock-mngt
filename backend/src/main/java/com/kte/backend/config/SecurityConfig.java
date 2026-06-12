@@ -28,8 +28,8 @@ public class SecurityConfig {
     private static final String[] PUBLIC_URLS = {
             "/api/v1/auth/**",
 
-            "/api/v1/tenants/approve/**",      // ✅ Ajouter cette ligne
-            "/api/v1/tenants/activate/**",     // ✅ Ajouter cette ligne
+            "/api/v1/tenants/approve/**",
+            "/api/v1/tenants/activate/**",
 
 
             "/v2/api-docs",

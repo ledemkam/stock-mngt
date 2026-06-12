@@ -1,6 +1,7 @@
 package com.kte.backend.controllers;
 
 import com.kte.backend.common.PageReponse;
+import com.kte.backend.controllers.uicontrollers.UITenantController;
 import com.kte.backend.dto.responses.TenantResponse;
 import com.kte.backend.services.tenant.TenantService;
 import lombok.RequiredArgsConstructor;
@@ -13,11 +14,12 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping(path = "/api/v1/tenants")
 @Slf4j
-public class TenantController {
+public class TenantController implements UITenantController {
 
     private final TenantService tenantService;
 
 
+    @Override
     @PostMapping(path = "/approve/{tenant-id}")
     public ResponseEntity<Void> approveTenant(
             @PathVariable("tenant-id")
@@ -29,6 +31,7 @@ public class TenantController {
     }
 
 
+    @Override
     @PatchMapping(path = "/activate/{tenant-id}")
     public ResponseEntity<Void> activateTenant(
             @PathVariable("tenant-id")
@@ -38,6 +41,7 @@ public class TenantController {
         return ResponseEntity.ok().build();
     }
 
+    @Override
     @PatchMapping(path = "/deactivate/{tenant-id}")
     public ResponseEntity<Void> deactivateTenant(
             @PathVariable("tenant-id")
@@ -47,6 +51,7 @@ public class TenantController {
         return ResponseEntity.ok().build();
     }
 
+    @Override
     @PatchMapping(path = "/suspend/{tenant-id}")
     public ResponseEntity<Void> suspendTenant(
             @PathVariable("tenant-id")
@@ -56,6 +61,7 @@ public class TenantController {
         return ResponseEntity.ok().build();
     }
 
+    @Override
     @GetMapping
     public ResponseEntity<PageReponse<TenantResponse>> findAllTenants(
             @RequestParam(name = "page", defaultValue = "0")
