@@ -19,7 +19,7 @@ create table tenants
     status          varchar(255) not null
         constraint tenants_status_check
             check ((status)::text = ANY
-                   ((ARRAY ['PENDING'::character varying, 'ACTIVE'::character varying, 'SUSPENDED'::character varying, 'INACTIVE'::character varying])::text[])),
+                   ((ARRAY ['PENDING'::character varying, 'ACTIVE'::character varying, 'SUSPENDED'::character varying, 'INACTIVE'::character varying])::text[]))
 );
 
 
