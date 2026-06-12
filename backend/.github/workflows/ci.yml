@@ -7,9 +7,12 @@ on:
     branches: ['**']
 
 jobs:
-  build:
+  build-and-test:
     name: Build & Test
     runs-on: ubuntu-latest
+    env:
+      MAVEN_OPTS: '-Xmx2g -XX:+TieredCompilation'
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -35,11 +38,16 @@ jobs:
           java -version
           ./mvnw -v
 
-      - name: Check Docker availability
-        run: docker version
-
       - name: Build (skip tests)
         run: ./mvnw -B -DskipTests package
 
-      - name: Run unit tests
-        run: ./mvnw -B -DskipITs=true test
+      - name: Run all tests
+        # Covers unit tests AND @DataJpaTest repository tests (H2 in-memory, no Docker needed)
+        run: ./mvnw -B test
+
+      - name: Upload surefire reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: surefire-reports
+          path: target/surefire-reports/**
